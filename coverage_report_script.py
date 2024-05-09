@@ -36,13 +36,16 @@ def calc_depth_stats(df, depth_column, name):
     """
     # initialise summary stats df #
     stats_df = pd.DataFrame(columns=["region", "average_coverage", "%250x"])
+    
     # calculate mean coverage #
     depth_series = df[depth_column]
     mean = int(round(depth_series.mean()))
+    
     # calculate % of bases with coverage > 250x #
     length = len(depth_series)
     length_250 = len(depth_series[depth_series>=250])
     percent_250 = round(100*(length_250/length),1)
+    
     # store values in stats df # 
     stats_df.loc[len(df)] = [name, mean, percent_250]
     return stats_df
